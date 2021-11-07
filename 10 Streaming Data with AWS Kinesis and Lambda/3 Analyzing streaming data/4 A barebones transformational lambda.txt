@@ -1,0 +1,32 @@
+You got asked by one of your European coworkers to convert all the speed data coming in to kilometers as part of the lambda transformation function.
+
+For each record coming in, convert the speed to kilometers per hour instead of miles per hour.
+
+The base64 module has been imported for you, and the output empty list is available in your environment.
+
+Instructions 1/4
+Decode the incoming record data and convert it into a list.
+Replace the 6ths element in the list (speed) with the value multiplied by 1.60934 to convert to kilometers.
+Re-encode the payload.
+Append it to the list of records to be returned from the transformational lambda.
+
+Code:
+for record in event['records']:
+    #Decode the incoming data and convert it to a list
+    payload_dec = base64.b64decode(record['data']).decode().split(" ")
+    # Multiply the speed component by 1.60934 to convert to kph
+    payload_dec[5] = str(float(payload_dec[5]) * 1.60934)
+    # Re-Encode the payload
+    payload = " ".join(payload_dec)
+    payload_enc = base64.b64encode(payload.encode())
+    # Prepare the record
+    output.append({
+    	'recordId': record['recordId'], 'result': 'Ok', 
+        'data': payload_enc,
+    })
+    
+# Return all the records!
+print({'records': output})
+
+<script.py> output:
+    {'records': [{'recordId': 1010101, 'result': 'Ok', 'data': b'MmZmOGU3MTMxLTQwOGQtNDYzYi04ZDA3LWQwMTEyMzMzMDY1NiAxMjozMjo0NC4wMDAgODM5MjAyMDIwMzgzMzcyMjMgMTExLjM5MjM5MiAzNi4wOTc1NzcgNTMuMTA4MjI='}, {'recordId': 2020202, 'result': 'Ok', 'data': b'MmZmZTAzODMzLTQwOGQtNDYzYi04ZDA3LWRkZmlkamVsMzM1MSAxMToyMTo0NC4wMDAgMkxBWFgxQzg0OTM4MjkyMjMgMTE0LjIzMjM0IDM2LjA5NzU3NyAzMy43OTYxNA=='}, {'recordId': 3030303, 'result': 'Ok', 'data': b'NTQ2NTg2ZGc3LTQwOGQtNDYzYi04ZDA3LWQzMjRqbHNkamY5MiAxNzo0NDo0NC4wMDAgMkxBWFgxMjczNzQ3NDQyOTIgMTE0LjY2ODcgMzYuMDk3NTc3IDMwLjU3NzQ2'}, {'recordId': 4040404, 'result': 'Ok', 'data': b'MjM2MzgzMzgxLTQwOGQtNDYzYi04ZDA3LWQzMjgzMjA5MzI5NCA2OjQ0LjAwMCAyTEFYWDEzNzQ4MzkyNDQyOTIgMTExLjc4OTg3IDM2LjA5NzU3NyA5NC45NTEwNg=='}]}

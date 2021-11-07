@@ -1,0 +1,41 @@
+Data engineering sometimes involves managing permissions, users, and using GUI tools to do so instead of scripts. In this course, we will show you how to use boto3 to use Kinesis and Lambda, but also how to run certain operations on AWS. Throughout the course, the operations on AWS are taken care of for you, so that you can focus on the programming aspect of things. The screencasts are here to give you complete context on how things work. Feel free to try these operations on AWS on your own, but this is completely optional:
+
+You won't be tested on the AWS platform
+The AWS operations are taken care of for you throughout the course, so we strongly suggest to focus on finishing the course first
+If you ever decide to try things on AWS, make sure to always stop your instances as soon as you leave or you will end up with a hefty bill
+For now, you are beginning to learn how to interact with Firehose streams. Your predecessor has created a few Firehose streams, and you want to delete them all to have the account start fresh.
+
+Let's make a fresh start in the city's AWS account!
+
+
+Instructions 100 XP
+Import boto3 and create boto3 Firehose client.
+Get the list of Firehose Delivery streams.
+Iterate over the response contents and delete every stream.
+Verify that all the delivery streams have been deleted by printing the results of .list_delivery_streams().
+
+Code:
+
+# Import boto3 and create boto3 Firehose client
+import boto3
+firehose = boto3.client('firehose', 
+    aws_access_key_id=AWS_KEY_ID, aws_secret_access_key=AWS_SECRET, 
+    region_name='us-east-1', endpoint_url=endpoints['FIREHOSE'])
+
+# Get list of delivery streams
+response = firehose.list_delivery_streams()
+
+# Iterate over the response contents and delete every stream
+for stream_name in response['DeliveryStreamNames']:
+    firehose.delete_delivery_stream(DeliveryStreamName=stream_name)
+    print(f"Deleted stream: {stream_name}")
+
+# Print list of delivery streams
+print(firehose.list_delivery_streams())
+
+
+<script.py> output:
+    Deleted stream: stream_test
+    Deleted stream: old_ops_stream_1
+    Deleted stream: stream_that_should_be_gone
+    {'DeliveryStreamNames': [], 'HasMoreDeliveryStreams': False, 'ResponseMetadata': {'HTTPStatusCode': 200, 'HTTPHeaders': {'content-type': 'application/json', 'content-length': '58', 'access-control-allow-origin': '*', 'server': 'Werkzeug/1.0.1 Python/3.6.7', 'date': 'Sat, 13 Feb 2021 12:13:31 GMT'}, 'RetryAttempts': 0}}

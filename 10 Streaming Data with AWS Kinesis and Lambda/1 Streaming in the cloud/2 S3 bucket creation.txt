@@ -1,0 +1,30 @@
+Amazon's ARNs or Amazon Resource Names for buckets follow a specific format. Let's practice generating ARNs for various S3 buckets.
+
+The S3 client has been created and stored in the s3 variable.
+
+Instructions
+100 XP
+Create the new "sd-vehicle-data" bucket.
+List the buckets available in S3.
+Generate the ARN for each bucket and print it.
+
+# Create the new sd-vehicle-data bucket
+s3.create_bucket(Bucket='sd-vehicle-data')
+
+# List the buckets in S3
+for bucket_info in s3.list_buckets()['Buckets']:
+    
+    # Get the bucket_name
+    bucket_name = bucket_info['Name']
+    
+    # Generate bucket ARN.
+    arn = "arn:aws:s3:::{}".format(bucket_name)
+    
+    # Print the ARN
+    print(arn)
+	
+	
+<script.py> output:
+    arn:aws:s3:::logs-bucket
+    arn:aws:s3:::samples-bucket
+    arn:aws:s3:::sd-vehicle-data

@@ -1,0 +1,45 @@
+Encoding and decoding base64
+When you work with streaming data, you will find yourself often converting and decoding to and from base64. Being able to make these conversions is very important in data engineering.
+
+Let's practice encoding strings to base64 and decoding them back to a string!
+
+Printed on your console is an incoming log. You're going to practice encoding and decoding it.
+
+Instructions 1/4
+Encode the incoming string to bytes.
+Encode the bytes to base64.
+Decode the base64 string you created back to bytes.
+Finally, convert your decoded base64 string to a regular string.
+
+Code:
+import base64
+
+# Encode string to bytes
+incoming_log_encoded = incoming_log.encode()
+print(f"String in bytes: \n {incoming_log_encoded} \n")
+
+# Encode bytes to base64
+incoming_log_b64 = base64.b64encode(incoming_log_encoded)
+print(f"String in b64: \n {incoming_log_b64} \n")
+
+# Decode base64
+incoming_log_b64_decoded = base64.b64decode(incoming_log_b64)
+print(f"String decoded from b64: \n {incoming_log_b64_decoded} \n")
+
+# Decode bytes to string
+print(f"Bytes converted to string:\n {incoming_log_b64_decoded.decode()} \n")
+
+O/p:
+<script.py> output:
+    String in bytes: 
+     b'2ff8e7131-408d-463b-8d07-d016419b0656 20:26:44.000 2LAXX1C8XAK844292 114.392392 36.097577 90' 
+    
+    String in b64: 
+     b'MmZmOGU3MTMxLTQwOGQtNDYzYi04ZDA3LWQwMTY0MTliMDY1NiAyMDoyNjo0NC4wMDAgMkxBWFgxQzhYQUs4NDQyOTIgMTE0LjM5MjM5MiAzNi4wOTc1NzcgOTA=' 
+    
+    String decoded from b64: 
+     b'2ff8e7131-408d-463b-8d07-d016419b0656 20:26:44.000 2LAXX1C8XAK844292 114.392392 36.097577 90' 
+    
+    Bytes converted to string:
+     2ff8e7131-408d-463b-8d07-d016419b0656 20:26:44.000 2LAXX1C8XAK844292 114.392392 36.097577 90 
+    
