@@ -1,0 +1,3 @@
+Precision measures how many of the predictions of that class turned out to be true. 
+Recall measures how many of the total observations of that class the prediction was able to capture (or recall). 
+Regression error calculates how far away the prediction is from the observed number
